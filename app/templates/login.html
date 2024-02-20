@@ -1,0 +1,24 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="ko"> <!-- 웹 페이지 언어를 한국어로 설정 -->
+<head>
+    <meta charset="UTF-8"> <!-- 문자 인코딩 UTF-8 설정 -->
+    <title>로그인</title> <!-- 페이지 제목을 '로그인'으로 변경 -->
+</head>
+<body>
+    <h2>로그인</h2> <!-- 페이지의 부제목 -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div> <!-- 플래시 메시지 표시 -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="/"> <!-- 폼 제출 시 서버의 루트 경로로 POST 요청을 보냄 -->
+        <input type="text" name="username" placeholder="사용자 이름" required> <!-- '사용자 이름' 입력 필드, 필수 입력 -->
+        <input type="password" name="password" placeholder="비밀번호" required> <!-- '비밀번호' 입력 필드, 필수 입력 -->
+        <button type="submit">로그인</button> <!-- 폼 제출 버튼 -->
+    </form>
+    <p>계정이 없으신가요? <a href="/signup">회원가입</a></p> <!-- 회원가입 페이지로 이동하는 링크 -->
+</body>
+</html>

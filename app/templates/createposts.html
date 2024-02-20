@@ -1,0 +1,26 @@
+<!-- templates/createposts.html -->
+<!DOCTYPE html>
+<html lang="ko"> <!-- 웹 페이지 언어를 한국어로 설정 -->
+<head>
+    <meta charset="UTF-8"> <!-- 문자 인코딩을 UTF-8로 설정 -->
+    <title>게시물 작성</title> <!-- 페이지 제목을 '게시물 작성'으로 설정 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- CSS 스타일 시트 링크 -->
+</head>
+<body>
+<div class="container"> <!-- 콘텐츠를 감싸는 컨테이너 -->
+    <h1>새로운 게시물 작성</h1> <!-- 페이지의 주요 제목 -->
+    <form action="/createposts" method="post" class="post-form"> <!-- 폼을 제출할 때 '/posts' 경로로 POST 요청을 보냄 -->
+        <div class="form-group">
+            <label for="title">제목</label> <!-- '제목' 입력 필드의 레이블 -->
+            <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required> <!-- '제목' 입력 필드, 필수 입력 -->
+        </div>
+        <div class="form-group">
+            <label for="content">내용</label> <!-- '내용' 입력 필드의 레이블 -->
+            <textarea id="content" name="content" placeholder="내용을 입력하세요" required></textarea> <!-- '내용' 입력 필드, 필수 입력 -->
+        </div>
+        <button type="submit" class="submit-btn">게시</button> <!-- 폼 제출 버튼 -->
+        <button onclick="window.location.href='{{ url_for("post.posts") }}'" class="back-btn">뒤로 가기</button> <!-- 뒤로 가기 버튼 -->
+    </form>
+</div>
+</body>
+</html>

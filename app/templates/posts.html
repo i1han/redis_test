@@ -1,0 +1,60 @@
+<!-- templates/posts.html -->
+<!DOCTYPE html>
+<html lang="ko"> <!-- 웹 페이지 언어를 한국어로 설정 -->
+<head>
+    <meta charset="UTF-8"> <!-- 문자 인코딩을 UTF-8로 설정 -->
+    <title>게시판</title> <!-- 페이지 제목을 '게시판'으로 설정 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- CSS 스타일 시트 링크 -->
+    <style>
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> <!-- 콘텐츠를 감싸는 컨테이너 -->
+        <header> <!-- 페이지의 헤더 영역 -->
+            <div class="header-content"> <!-- 세션 ID와 로그아웃 버튼을 담는 컨테이너 -->
+                <table> <!-- 세션 ID를 표시하는 테이블 -->
+                    <tbody>
+                        <tr>
+                            <th>세션 ID: </th> <!-- 세션 ID 제목 -->
+                            <td>{{ session['session_id'] }}</td> <!-- 세션 ID 값 -->
+                        </tr>
+                    </tbody>
+                </table>
+                <form action="{{ url_for('auth.logout') }}" method="post"> <!-- 로그아웃 폼 -->
+                    <button type="submit">로그아웃</button> <!-- 로그아웃 버튼 -->
+                </form>
+            </div>
+            <h1>게시판</h1> <!-- 페이지 제목 -->
+        </header>
+        <main> <!-- 페이지의 주요 콘텐츠 영역 -->
+            <table> <!-- 게시물 목록을 표시하는 테이블 -->
+                <thead> <!-- 테이블 헤더 -->
+                    <tr> <!-- 테이블 행 -->
+                        <th scope="col">제목</th> <!-- 제목 열 -->
+                        <th scope="col">내용</th> <!-- 내용 열 -->
+                        <th scope="col">등록 날짜</th> <!-- 등록 날짜 열 -->
+                    </tr>
+                </thead>
+                <tbody> <!-- 테이블 본문 -->
+                    {% for post in posts %} <!-- 게시물 데이터 반복 -->
+                        <tr> <!-- 테이블 행 -->
+                            <td>{{ post.title }}</td> <!-- 제목 -->
+                            <td>{{ post.content }}</td> <!-- 내용 -->
+                            <td>{{ post.created_at }}</td> <!-- 등록 날짜 -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <form action="/createposts" method="get" style="display: inline;"> <!-- 게시물 작성 폼 -->
+                <button type="submit">게시물 작성</button> <!-- 게시물 작성 버튼 -->
+            </form>
+        </main>
+    </div>
+</body>
+</html>
